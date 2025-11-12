@@ -1,30 +1,105 @@
 {
   "expo": {
-    "name": "Fish",
-    "slug": "Fish",
+    "name": "Fish Cat Game - Entertainment for Cats",
+    "slug": "fish-cat-game",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
+    "description": "A scientifically-designed game for cats! Features cat vision-optimized colors, multiple game modes, and stat tracking. Entertain your cat with realistic fish, mice, laser pointers, and insects.",
+    "privacy": "public",
+    "primaryColor": "#003366",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#003366"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fishcatgame.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We use the camera to capture fun moments of your cat playing. Photos are stored locally on your device.",
+        "NSPhotoLibraryUsageDescription": "We need access to save screenshots of your cat's gameplay to your photo library.",
+        "NSPhotoLibraryAddUsageDescription": "We save screenshots of your cat playing to your photo library so you can share them!",
+        "UIRequiresFullScreen": true,
+        "UIStatusBarHidden": true,
+        "UIViewControllerBasedStatusBarAppearance": false
+      },
+      "requireFullScreen": true
     },
     "android": {
+      "package": "com.fishcatgame.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#003366"
       },
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA"
+      ],
+      "intentFilters": [],
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Fish Cat Game to access your photos to set cat profile pictures and save gameplay screenshots.",
+          "cameraPermission": "Allow Fish Cat Game to access your camera to take cat profile pictures and capture fun moments of your cat playing."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Fish Cat Game to save share images to your photo library.",
+          "savePhotosPermission": "Allow Fish Cat Game to save share images to your photo library."
+        }
+      ],
+      "expo-file-system",
+      "expo-sharing",
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "YOUR_SENTRY_ORG",
+          "project": "YOUR_SENTRY_PROJECT"
+        }
+      ],
+      [
+        "react-native-purchases",
+        {
+          "ios": {
+            "NSUserTrackingUsageDescription": "We use this to provide personalized in-app purchase offers and improve your experience."
+          }
+        }
+      ]
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "YOUR_SENTRY_ORG",
+            "project": "YOUR_SENTRY_PROJECT"
+          }
+        }
+      ]
+    },
+    "extra": {
+      "environment": "production",
+      "sentryDSN": "YOUR_SENTRY_DSN_HERE",
+      "privacyPolicyUrl": "https://fishcatgame.com/privacy",
+      "supportEmail": "support@fishcatgame.com",
+      "eas": {
+        "projectId": "YOUR_EAS_PROJECT_ID_HERE"
+      }
     }
   }
 }

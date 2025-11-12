@@ -1,20 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useEffect } from 'react';
+import { Game } from './src/components/Game';
+import { ErrorReporting } from './src/services/ErrorReporting';
+import { ErrorBoundary } from './src/components/ErrorBoundary';
+import { PurchaseProvider } from './src/monetization/contexts/PurchaseContext';
 
-export default function App() {
+function AppContent() {
+  useEffect(() => {
+    ErrorReporting.initialize();
+    ErrorReporting.addBreadcrumb('App started');
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PurchaseProvider>
+      <ErrorBoundary>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Game fishCount={30} mode="free-swim" />
+          <StatusBar style="light" />
+        </GestureHandlerRootView>
+      </ErrorBoundary>
+    </PurchaseProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default ErrorReporting.wrap(AppContent);
